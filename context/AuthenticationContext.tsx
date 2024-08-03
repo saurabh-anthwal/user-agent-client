@@ -8,6 +8,14 @@ interface User {
     email: string;
     // Add other user fields as necessary
 }
+interface Agent {
+    id: string;
+    name: string,
+    description: string,
+    imageUrl: string,
+    url: string,
+    formData: any
+}
 
 export interface AuthenticationContextProps {
     user: User | null;
@@ -17,6 +25,8 @@ export interface AuthenticationContextProps {
     register: (credentials: { name: string; email: string; password: string }) => Promise<void>;
     logout: () => Promise<void>;
     clearError: () => void;
+    agent: Agent | null;
+    agentList: Promise<any[]>;
 }
 
 export const AuthenticationContext = createContext<AuthenticationContextProps | undefined>(undefined);
@@ -27,6 +37,7 @@ interface AuthenticationProviderProps {
 
 export const AuthenticationProvider = ({ children }: AuthenticationProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
+    const [agent, setAgent] = useState<Agent | null>(null);
     const [accessToken, setAccessToken] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -142,12 +153,31 @@ export const AuthenticationProvider = ({ children }: AuthenticationProviderProps
         }
     };
 
+    const agentList = async () => {
+        try {
+            const { data } = await axios.get('http://localhost:3000/api/agent');
+            // console.log('fgtfgn', data);
+            
+            // setAgent(data.agent);
+            return data.agent
+        } catch (error: any) {
+            if (error.response && error.response.data) {
+                return;
+            } else if (error.request) {
+                return;
+            } else {
+                return;
+            }
+        }
+    };
+
+
     const clearError = () => {
         setError(null);
     };
 
     return (
-        <AuthenticationContext.Provider value={{ user, accessToken, error, login, register, logout, clearError }}>
+        <AuthenticationContext.Provider value={{ user, accessToken, error, login, register, logout, clearError, agentList}}>
             {children}
         </AuthenticationContext.Provider>
     );

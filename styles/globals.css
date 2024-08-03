@@ -9,7 +9,8 @@
 }
 
 body {
-  background-image: url('/background.jpg');
+  /* background-image: url('/background.jpg'); */
+  background-color: rgba(241, 241, 241, 0.531);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;

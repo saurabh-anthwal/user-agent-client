@@ -15,13 +15,13 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-gray-800 p-4 flex justify-between items-center">
+        <nav className="bg-white p-4 flex justify-between items-center shadow-lg">
             <Link href="/">
                 <Image src={Logo} alt="Logo" width={50} height={50} />
             </Link>
             <button
                 onClick={handleLogout}
-                className="text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded">
+                className="text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-full">
                 Logout
             </button>
         </nav>

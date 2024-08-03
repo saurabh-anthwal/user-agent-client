@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getCookie } from "cookies-next";
 
+// const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 const unAuthAxios = axios.create({
@@ -18,6 +19,17 @@ const authAxios = axios.create({
         'Content-Type': 'application/json'
     }
 });
+
+// authAxios.interceptors.request.use((config:any) => {
+//     const tokenValue = getCookie('access');
+//     if (tokenValue) {
+//         config.headers.Authorization = `Bearer ${tokenValue}`;
+//     }
+//     return config;
+// }, (error:any) => {
+//     return Promise.reject(error);
+// });
+
 
 // request interceptors
 // authAxios.interceptors.request.use(async (config) => {
